@@ -3,26 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { z } from "zod";
 import { Resend } from 'resend';
-import { DefaultAzureCredential } from "@azure/identity";
-import { SecretClient } from "@azure/keyvault-secrets";
-
-// Replace with your Key Vault name
-const vaultName = "kv-timorris3229-msft"; 
-const url = `https://${vaultName}.vault.azure.net`;
-
-const credential = new DefaultAzureCredential();
-const client = new SecretClient(url, credential);
-
-async function getSecret(secretName: string) {
-  try {
-    const secret = await client.getSecret(secretName);
-    console.log(`Secret value for ${secretName}: ${secret.value}`);
-    return secret.value;
-  } catch (error) {
-    console.error(`Error retrieving secret ${secretName}:`, error);
-    return null;
-  }
-}
+import { getSecret } from "./util";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission
@@ -36,11 +17,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { email, subject, message } = contactSchema.parse(req.body);
       
+      /*
       if (!process.env.RESEND_API_KEY) {
         return res.status(500).json({ 
           error: 'Email service not configured. Please contact support directly.' 
         });
       }
+      */
       const resendApiKey = await getSecret('resend-api-key');
       //const resend = new Resend(process.env.RESEND_API_KEY);
       const resend = new Resend(resendApiKey as string || '');
