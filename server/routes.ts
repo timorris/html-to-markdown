@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { z } from "zod";
 import { Resend } from 'resend';
-import { getSecret } from "./util";
+//import { getSecret } from "./util";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Contact form submission
@@ -17,16 +17,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { email, subject, message } = contactSchema.parse(req.body);
       
-      /*
+      
       if (!process.env.RESEND_API_KEY) {
         return res.status(500).json({ 
           error: 'Email service not configured. Please contact support directly.' 
         });
       }
-      */
-      const resendApiKey = await getSecret('resend-api-key');
-      //const resend = new Resend(process.env.RESEND_API_KEY);
-      const resend = new Resend(resendApiKey as string || '');
+      
+      //const resendApiKey = await getSecret('resend-api-key');
+      //const resend = new Resend(resendApiKey as string || '');
+      const resend = new Resend(process.env.RESEND_API_KEY);
       
       // Send notification to the site owner (always goes to verified email)
       const emailResponse = await resend.emails.send({
