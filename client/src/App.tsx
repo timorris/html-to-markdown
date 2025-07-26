@@ -7,6 +7,9 @@ import Converter from "./pages/converter";
 import Support from "./pages/support";
 import Terms from "./pages/terms";
 import Privacy from "./pages/privacy";
+import EmailSupport from "./pages/email-support";
+import Feedback from "./pages/feedback";
+import Community from "./pages/community";
 
 function Router() {
   return (
@@ -16,6 +19,9 @@ function Router() {
       <Route path="/support" component={Support} />
       <Route path="/terms" component={Terms} />
       <Route path="/privacy" component={Privacy} />
+      <Route path="/email-support" component={EmailSupport} />
+      <Route path="/feedback" component={Feedback} />
+      <Route path="/community" component={Community} />
     </Switch>
   );
 }

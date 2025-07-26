@@ -197,37 +197,43 @@ export default function Support() {
           </CardContent>
         </Card>
 
-        {/* Additional Contact Information */}
+        {/* Additional Support Options */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-          <div className="p-6 bg-slate-900/30 rounded-xl border border-slate-700">
-            <div className="w-12 h-12 bg-indigo-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Mail className="w-6 h-6 text-indigo-400" />
+          <Link href="/email-support">
+            <div className="p-6 bg-slate-900/30 rounded-xl border border-slate-700 hover:border-slate-600 hover:bg-slate-900/50 transition-all cursor-pointer group">
+              <div className="w-12 h-12 bg-indigo-500/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-indigo-500/30 transition-colors">
+                <Mail className="w-6 h-6 text-indigo-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-200 mb-2 group-hover:text-slate-100 transition-colors">Email Support</h3>
+              <p className="text-slate-400 text-sm group-hover:text-slate-300 transition-colors">
+                Get help with technical issues and general questions
+              </p>
             </div>
-            <h3 className="text-lg font-semibold text-slate-200 mb-2">Email Support</h3>
-            <p className="text-slate-400 text-sm">
-              Get help with technical issues and general questions
-            </p>
-          </div>
+          </Link>
 
-          <div className="p-6 bg-slate-900/30 rounded-xl border border-slate-700">
-            <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <MessageSquare className="w-6 h-6 text-green-400" />
+          <Link href="/feedback">
+            <div className="p-6 bg-slate-900/30 rounded-xl border border-slate-700 hover:border-slate-600 hover:bg-slate-900/50 transition-all cursor-pointer group">
+              <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-500/30 transition-colors">
+                <MessageSquare className="w-6 h-6 text-green-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-200 mb-2 group-hover:text-slate-100 transition-colors">Feedback</h3>
+              <p className="text-slate-400 text-sm group-hover:text-slate-300 transition-colors">
+                Share your thoughts and suggestions for improvements
+              </p>
             </div>
-            <h3 className="text-lg font-semibold text-slate-200 mb-2">Feedback</h3>
-            <p className="text-slate-400 text-sm">
-              Share your thoughts and suggestions for improvements
-            </p>
-          </div>
+          </Link>
 
-          <div className="p-6 bg-slate-900/30 rounded-xl border border-slate-700">
-            <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Github className="w-6 h-6 text-purple-400" />
+          <Link href="/community">
+            <div className="p-6 bg-slate-900/30 rounded-xl border border-slate-700 hover:border-slate-600 hover:bg-slate-900/50 transition-all cursor-pointer group">
+              <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-500/30 transition-colors">
+                <Github className="w-6 h-6 text-purple-400" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-200 mb-2 group-hover:text-slate-100 transition-colors">Community</h3>
+              <p className="text-slate-400 text-sm group-hover:text-slate-300 transition-colors">
+                Join our community for discussions and updates
+              </p>
             </div>
-            <h3 className="text-lg font-semibold text-slate-200 mb-2">Community</h3>
-            <p className="text-slate-400 text-sm">
-              Join our community for discussions and updates
-            </p>
-          </div>
+          </Link>
         </div>
       </main>
 

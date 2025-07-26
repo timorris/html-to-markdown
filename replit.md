@@ -45,8 +45,15 @@ Preferred communication style: Simple, everyday language.
 - **Copy Functionality**: One-click copying of converted content
 - **Status Indicators**: Real-time conversion feedback and statistics
 - **Responsive Design**: Mobile-friendly layout with proper breakpoints
-- **Support Contact Form**: Email-based contact form using Resend API
+- **Support System**: Comprehensive support infrastructure with multiple specialized pages
 - **Legal Pages**: Standard Terms of Service and Privacy Policy pages
+
+### Support & Community Features
+- **Support Contact Form**: Email-based contact form using Resend API with verified delivery
+- **Email Support Page**: Detailed response times, troubleshooting tips, and support guidelines
+- **Feedback Page**: User feedback collection with development roadmap and popular feature requests
+- **Community Page**: GitHub integration showing real repository activity and contribution guidelines
+- **GitHub API Integration**: Live community activity feed from timorris/html-to-markdown repository
 
 ### Development Tools
 - **Hot Reload**: Vite HMR for instant development feedback
@@ -77,6 +84,7 @@ Preferred communication style: Simple, everyday language.
 - **@neondatabase/serverless**: PostgreSQL connection for serverless environments
 - **drizzle-orm + drizzle-zod**: Type-safe ORM with schema validation
 - **connect-pg-simple**: Session store for PostgreSQL (configured but not used)
+- **@sendgrid/mail + resend**: Email service providers for contact form functionality
 
 ### Conversion Libraries
 - **marked**: Markdown to HTML conversion with GitHub Flavored Markdown support
@@ -98,6 +106,8 @@ Preferred communication style: Simple, everyday language.
 
 ### Environment Configuration
 - **Database URL**: Required environment variable for PostgreSQL connection
+- **Email Services**: RESEND_API_KEY for contact form email delivery
+- **GitHub Integration**: GITHUB_PUBLIC_TOKEN for community activity feed
 - **Replit Integration**: Special handling for Replit environment with cartographer plugin
 - **Static Serving**: Express serves built frontend assets in production
 
@@ -106,3 +116,22 @@ Preferred communication style: Simple, everyday language.
 - **Migrations**: `npm run db:push` applies schema changes
 - **Current State**: Basic user schema exists but application uses memory storage
 - **Future**: Ready for PostgreSQL integration when user authentication is needed
+
+## Recent Changes (July 26, 2025)
+
+### Support Infrastructure Enhancement
+- **Created Email Support Page** (`/email-support`): Response time information, troubleshooting guidelines, and support best practices
+- **Created Feedback Page** (`/feedback`): Development roadmap, feature request tracking, and user feedback guidelines
+- **Created Community Page** (`/community`): GitHub repository integration, contribution guidelines, and community activity feed
+- **Enhanced Support Page**: Made support cards clickable with smooth hover effects linking to dedicated pages
+
+### GitHub API Integration
+- **Live Activity Feed**: Integrated GitHub API to display real repository activity from timorris/html-to-markdown
+- **Authentication**: Configured with GitHub Personal Access Token for public repository access
+- **Real-time Data**: Shows actual commits, pull requests, issues, and releases with proper timestamps
+- **Error Handling**: Graceful fallback to empty state when GitHub API is unavailable
+
+### Email System Configuration
+- **Resend Integration**: All contact form submissions route to verified Gmail address (bethatway@gmail.com)
+- **Production Ready**: Email delivery works in both development and production environments
+- **Reply-to Functionality**: Maintains sender's email for easy response workflow
