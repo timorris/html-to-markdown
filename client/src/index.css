@@ -1,0 +1,181 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(222, 84%, 5%);
+  --foreground: hsl(210, 40%, 98%);
+  --muted: hsl(217, 32%, 17%);
+  --muted-foreground: hsl(215, 20%, 65%);
+  --popover: hsl(222, 84%, 5%);
+  --popover-foreground: hsl(210, 40%, 98%);
+  --card: hsl(222, 84%, 5%);
+  --card-foreground: hsl(210, 40%, 98%);
+  --border: hsl(217, 32%, 17%);
+  --input: hsl(217, 32%, 17%);
+  --primary: hsl(217, 91%, 60%);
+  --primary-foreground: hsl(222, 47%, 11%);
+  --secondary: hsl(217, 32%, 17%);
+  --secondary-foreground: hsl(210, 40%, 98%);
+  --accent: hsl(217, 32%, 17%);
+  --accent-foreground: hsl(210, 40%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(210, 40%, 98%);
+  --ring: hsl(217, 32%, 17%);
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: hsl(222, 84%, 5%);
+  --foreground: hsl(210, 40%, 98%);
+  --muted: hsl(217, 32%, 17%);
+  --muted-foreground: hsl(215, 20%, 65%);
+  --popover: hsl(222, 84%, 5%);
+  --popover-foreground: hsl(210, 40%, 98%);
+  --card: hsl(222, 84%, 5%);
+  --card-foreground: hsl(210, 40%, 98%);
+  --border: hsl(217, 32%, 17%);
+  --input: hsl(217, 32%, 17%);
+  --primary: hsl(217, 91%, 60%);
+  --primary-foreground: hsl(222, 47%, 11%);
+  --secondary: hsl(217, 32%, 17%);
+  --secondary-foreground: hsl(210, 40%, 98%);
+  --accent: hsl(217, 32%, 17%);
+  --accent-foreground: hsl(210, 40%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(210, 40%, 98%);
+  --ring: hsl(217, 32%, 17%);
+  --radius: 0.75rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Custom scrollbar for textareas */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: hsl(217, 32%, 17%);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: hsl(215, 20%, 40%);
+  border-radius: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: hsl(215, 20%, 50%);
+}
+
+/* Custom prose styling for markdown preview */
+.prose-preview {
+  color: hsl(210, 40%, 98%);
+  line-height: 1.7;
+}
+
+.prose-preview h1, 
+.prose-preview h2, 
+.prose-preview h3, 
+.prose-preview h4, 
+.prose-preview h5, 
+.prose-preview h6 {
+  color: hsl(210, 40%, 98%);
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose-preview h1 { font-size: 2em; }
+.prose-preview h2 { font-size: 1.5em; }
+.prose-preview h3 { font-size: 1.25em; }
+.prose-preview h4 { font-size: 1.125em; }
+
+.prose-preview p {
+  margin-bottom: 1em;
+}
+
+.prose-preview a {
+  color: hsl(217, 91%, 60%);
+  text-decoration: underline;
+}
+
+.prose-preview a:hover {
+  color: hsl(217, 91%, 70%);
+}
+
+.prose-preview code {
+  background: hsl(217, 32%, 17%);
+  color: hsl(210, 40%, 98%);
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.85em;
+}
+
+.prose-preview pre {
+  background: hsl(217, 32%, 17%);
+  color: hsl(210, 40%, 98%);
+  padding: 1em;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1em 0;
+}
+
+.prose-preview pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.prose-preview blockquote {
+  border-left: 4px solid hsl(217, 91%, 60%);
+  padding-left: 1em;
+  margin: 1em 0;
+  color: hsl(215, 20%, 65%);
+  font-style: italic;
+}
+
+.prose-preview ul, 
+.prose-preview ol {
+  margin: 1em 0;
+  padding-left: 1.5em;
+}
+
+.prose-preview li {
+  margin-bottom: 0.5em;
+}
+
+.prose-preview table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+
+.prose-preview th, 
+.prose-preview td {
+  border: 1px solid hsl(217, 32%, 17%);
+  padding: 0.5em;
+  text-align: left;
+}
+
+.prose-preview th {
+  background: hsl(217, 32%, 17%);
+  font-weight: 600;
+}
+
+.prose-preview img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+.prose-preview hr {
+  border: none;
+  border-top: 1px solid hsl(217, 32%, 17%);
+  margin: 2em 0;
+}
