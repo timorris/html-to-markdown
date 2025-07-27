@@ -629,3 +629,43 @@ button:not(:disabled) .text-slate-400 {
   border-top: 1px solid hsl(217, 32%, 17%);
   margin: 2em 0;
 }
+
+
+
+/* Clean code block styling without syntax highlighting */
+.dark pre {
+  background: #1e293b !important;
+  color: #e2e8f0 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  padding: 12px !important;
+  margin: 8px 0 !important;
+  font-family: 'SF Mono', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+.light pre {
+  background: #f8fafc !important;
+  color: #1e293b !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 4px !important;
+  padding: 12px !important;
+  margin: 8px 0 !important;
+  font-family: 'SF Mono', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+/* Hide any remaining token spans */
+.token {
+  display: none !important;
+}
+
+

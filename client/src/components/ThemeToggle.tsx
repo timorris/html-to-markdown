@@ -5,9 +5,10 @@ import { useThemeContext } from '@/components/ThemeProvider';
 
 interface ThemeToggleProps {
   className?: string;
+  title?: string;
 }
 
-const ThemeToggle = React.forwardRef<HTMLButtonElement, ThemeToggleProps>(({ className, ...props }, ref) => {
+const ThemeToggle = React.forwardRef<HTMLButtonElement, ThemeToggleProps>(({ className, title: providedTitle, ...props }, ref) => {
   const { theme, toggleTheme, isTransitioning } = useThemeContext();
 
   return (
@@ -22,7 +23,7 @@ const ThemeToggle = React.forwardRef<HTMLButtonElement, ThemeToggleProps>(({ cla
       className={`relative bg-slate-800 hover:bg-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 transition-all duration-300 ${
         isTransitioning ? 'scale-110' : ''
       } ${className || ''}`}
-      title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+      title={providedTitle || `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
       data-theme-toggle="true"
       {...props}
     >

@@ -18,6 +18,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import ShareButtons from "@/components/ShareButtons";
 import TooltipHint from "@/components/TooltipHint";
 import KeyboardShortcuts from "@/components/KeyboardShortcuts";
+import PreviewPane from "@/components/PreviewPane";
 
 declare global {
   interface Window {
@@ -498,7 +499,7 @@ export default function Converter() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
-                <h2 className="text-lg font-semibold text-slate-200">HTML</h2>
+                <h2 className="text-lg font-semibold dark:text-slate-200 text-slate-900">HTML</h2>
                 <span className="px-2 py-1 text-xs font-medium bg-orange-500/20 text-orange-400 rounded-md">
                   Input/Output
                 </span>
@@ -508,7 +509,7 @@ export default function Converter() {
                   variant="ghost" 
                   size="sm"
                   onClick={() => copyToClipboard(htmlContent, 'HTML')}
-                  className="bg-slate-800 hover:bg-slate-700"
+                  className="dark:bg-slate-800 dark:hover:bg-slate-700 bg-slate-100 hover:bg-slate-200"
                 >
                   <Copy className="w-4 h-4 mr-2" />
                   Copy
@@ -520,11 +521,11 @@ export default function Converter() {
               <Textarea 
                 value={htmlContent}
                 onChange={(e) => handleHtmlChange(e.target.value)}
-                className="h-80 font-mono text-sm custom-scrollbar bg-slate-900 border-slate-700 focus:border-indigo-500 resize-none"
+                className="h-80 font-mono text-sm custom-scrollbar bg-slate-900 border-slate-700 focus:border-indigo-500 resize-none dark:bg-slate-900 dark:border-slate-700 bg-white border-slate-300 text-slate-900 dark:text-slate-100"
                 placeholder="Paste your HTML here or see converted output..."
               />
               
-              <div className="absolute bottom-2 right-2 text-xs text-slate-500 bg-slate-800/80 px-2 py-1 rounded">
+              <div className="absolute bottom-2 right-2 text-xs text-slate-500 bg-slate-800/80 px-2 py-1 rounded dark:bg-slate-800/80 dark:text-slate-500 bg-slate-200/80 text-slate-600">
                 {htmlContent.length} characters
               </div>
             </div>
@@ -534,7 +535,7 @@ export default function Converter() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
-                <h2 className="text-lg font-semibold text-slate-200">Markdown</h2>
+                <h2 className="text-lg font-semibold dark:text-slate-200 text-slate-900">Markdown</h2>
                 <span className="px-2 py-1 text-xs font-medium bg-blue-500/20 text-blue-400 rounded-md">
                   Input/Output
                 </span>
@@ -551,7 +552,7 @@ export default function Converter() {
                     variant="ghost" 
                     size="sm"
                     onClick={() => copyToClipboard(markdownContent, 'Markdown')}
-                    className="bg-slate-800 hover:bg-slate-700"
+                    className="dark:bg-slate-800 dark:hover:bg-slate-700 bg-slate-100 hover:bg-slate-200"
                   >
                     <Copy className="w-4 h-4 mr-2" />
                     Copy
@@ -565,23 +566,23 @@ export default function Converter() {
                 ref={markdownTextareaRef}
                 value={markdownContent}
                 onChange={(e) => handleMarkdownChange(e.target.value)}
-                className="h-80 font-mono text-sm custom-scrollbar bg-slate-900 border-slate-700 focus:border-indigo-500 resize-none"
+                className="h-80 font-mono text-sm custom-scrollbar bg-slate-900 border-slate-700 focus:border-indigo-500 resize-none dark:bg-slate-900 dark:border-slate-700 bg-white border-slate-300 text-slate-900 dark:text-slate-100"
                 placeholder="Paste your Markdown here or see converted output..."
               />
               
-              <div className="absolute bottom-2 right-2 text-xs text-slate-500 bg-slate-800/80 px-2 py-1 rounded">
+              <div className="absolute bottom-2 right-2 text-xs text-slate-500 bg-slate-800/80 px-2 py-1 rounded dark:bg-slate-800/80 dark:text-slate-500 bg-slate-200/80 text-slate-600">
                 {markdownContent.length} characters
               </div>
             </div>
           </div>
 
-          {/* Rendered Preview Panel */}
+          {/* Syntax-Highlighted Preview Panel */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
-                <h2 className="text-lg font-semibold text-slate-200">Preview</h2>
+                <h2 className="text-lg font-semibold dark:text-slate-200 text-slate-900">Preview</h2>
                 <span className="px-2 py-1 text-xs font-medium bg-green-500/20 text-green-400 rounded-md">
-                  Rendered
+                  Syntax Highlighted
                 </span>
               </div>
               <div className="flex items-center space-x-2">
@@ -590,14 +591,14 @@ export default function Converter() {
                     variant="outline"
                     size="sm"
                     onClick={() => fileInputRef.current?.click()}
-                    className="bg-slate-800 hover:bg-slate-700 border-slate-600"
+                    className="bg-slate-800 hover:bg-slate-700 border-slate-600 dark:bg-slate-800 dark:hover:bg-slate-700 dark:border-slate-600 bg-slate-100 hover:bg-slate-200 border-slate-300"
                   >
                     <Upload className="w-4 h-4 mr-2" />
                     Upload
                   </Button>
                 </TooltipHint>
                 
-                <TooltipHint content="Clear all content (Ctrl+K)">
+                <TooltipHint content="Clear all content (Ctrl+Shift+X)">
                   <Button 
                     variant="outline"
                     size="sm"
@@ -611,18 +612,15 @@ export default function Converter() {
               </div>
             </div>
             
-            <div className="relative">
-              <div 
-                className="h-80 p-4 bg-slate-900 border border-slate-700 rounded-md overflow-auto custom-scrollbar prose-preview"
-                dangerouslySetInnerHTML={{ 
-                  __html: markdownContent ? convertMarkdownToHtml(cleanMarkdownForPreview(markdownContent)) : '<p class="text-slate-500 italic">Preview will appear here when you add Markdown content...</p>' 
-                }}
-              />
-              
-              <div className="absolute bottom-2 right-2 text-xs text-slate-500 bg-slate-800/80 px-2 py-1 rounded">
-                Rendered Output
-              </div>
-            </div>
+            <Card className="h-80 bg-slate-900 border-slate-700 dark:bg-slate-900 dark:border-slate-700 bg-white border-slate-300">
+              <CardContent className="p-0 h-full">
+                <PreviewPane 
+                  content={markdownContent || htmlContent} 
+                  type={markdownContent ? "markdown" : "html"}
+                  className="h-full"
+                />
+              </CardContent>
+            </Card>
           </div>
         </div>
 
