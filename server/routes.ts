@@ -10,7 +10,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/github/test', async (req, res) => {
     try {
       //const token = process.env.GITHUB_PUBLIC_TOKEN || process.env.GITHUB_TOKEN;
-      const token = await getSecret('github-public-token' as string);
+      const token = await getSecret('github-public-token');
 
       if (!token) {
         return res.json({ error: 'GitHub token not configured', hasToken: false });
@@ -42,7 +42,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/github/stats', async (req, res) => {
     try {
       //const token = process.env.GITHUB_PUBLIC_TOKEN || process.env.GITHUB_TOKEN;
-      const token = await getSecret('github-public-token' as string);
+      const token = await getSecret('github-public-token');
 
       if (!token) {
         return res.json({ stats: null });
@@ -87,7 +87,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/github/activity', async (req, res) => {
     try {
       //const token = process.env.GITHUB_PUBLIC_TOKEN || process.env.GITHUB_TOKEN;
-      const token = await getSecret('github-public-token' as string);
+      const token = await getSecret('github-public-token');
       
       if (!token) {
         return res.json({ activities: [] });
@@ -224,7 +224,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       //const resend = new Resend(process.env.RESEND_API_KEY);
       
-      const apiKey = await getSecret('resend-api-key' as string);
+      const apiKey = await getSecret('resend-api-key');
       
       if (!apiKey) {
         return res.status(500).json({ 
