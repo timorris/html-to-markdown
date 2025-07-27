@@ -2,7 +2,7 @@ import { DefaultAzureCredential } from "@azure/identity";
 import { SecretClient } from "@azure/keyvault-secrets";
 
 // Replace with your Key Vault name
-const vaultName = "kv-timorrris3229-msft"; 
+const vaultName = "kv-timorris"; 
 const url = `https://${vaultName}.vault.azure.net`;
 
 const credential = new DefaultAzureCredential();
