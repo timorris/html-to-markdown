@@ -3,41 +3,15 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { z } from "zod";
 import { Resend } from 'resend';
-//import { getSecret } from "./util";
-import { DefaultAzureCredential, ClientSecretCredential } from "@azure/identity";
-import { SecretClient } from "@azure/keyvault-secrets";
 
-// Replace with your Key Vault name
-const vaultName = "kv-timorris"; 
-const url = `https://${vaultName}.vault.azure.net`;
-const clientId = process.env.CLIENT_ID;
-const clientSecret = process.env.CLIENT_SECRET;
-const tenantId = process.env.TENANT_ID;
 
-if (!tenantId || !clientId || !clientSecret) {
-    throw new Error('Missing required environment variables for Azure authentication');
-  }
-const credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
-
-//const credential = new DefaultAzureCredential();
-const client = new SecretClient(url, credential);
-
-async function getSecret(secretName: string): Promise<string | undefined> {
-  try {
-    const secret = await client.getSecret(secretName);
-    return secret.value || undefined;
-  } catch (error) {
-    return undefined;
-  }
-}
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // GitHub API test endpoint
   app.get('/api/github/test', async (req, res) => {
     try {
-      //const token = process.env.GITHUB_PUBLIC_TOKEN || process.env.GITHUB_TOKEN;
-      const token = await getSecret('github-public-token');
-
+      const token = process.env.GITHUB_PUBLIC_TOKEN || process.env.GITHUB_TOKEN;
+      
       if (!token) {
         return res.json({ error: 'GitHub token not configured', hasToken: false });
       }
@@ -67,9 +41,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // GitHub API endpoint for repository stats
   app.get('/api/github/stats', async (req, res) => {
     try {
-      //const token = process.env.GITHUB_PUBLIC_TOKEN || process.env.GITHUB_TOKEN;
-      const token = await getSecret('github-public-token');
-
+      const token = process.env.GITHUB_PUBLIC_TOKEN || process.env.GITHUB_TOKEN;
+      
       if (!token) {
         return res.json({ stats: null });
       }
@@ -112,8 +85,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // GitHub API endpoint for community activity
   app.get('/api/github/activity', async (req, res) => {
     try {
-      //const token = process.env.GITHUB_PUBLIC_TOKEN || process.env.GITHUB_TOKEN;
-      const token = await getSecret('github-public-token');
+      const token = process.env.GITHUB_PUBLIC_TOKEN || process.env.GITHUB_TOKEN;
       
       if (!token) {
         return res.json({ activities: [] });
@@ -240,25 +212,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { email, subject, message } = contactSchema.parse(req.body);
       
-      /*
       if (!process.env.RESEND_API_KEY) {
         return res.status(500).json({ 
           error: 'Email service not configured. Please contact support directly.' 
         });
       }
-        */
-
-      //const resend = new Resend(process.env.RESEND_API_KEY);
       
-      const apiKey = await getSecret('resend-api-key');
+      const resend = new Resend(process.env.RESEND_API_KEY);
       
-      if (!apiKey) {
-        return res.status(500).json({ 
-          error: 'Email service not configured. Please contact support directly.' 
-        });
-      }
+      //const apiKey = await getSecret('resend-api-key');
+      
+      //if (!apiKey) {
+      //  return res.status(500).json({ 
+      //    error: 'Email service not configured. Please contact support directly.' 
+      //  });
+      //}
 
-      const resend = new Resend(apiKey as string || '');
+      //const resend = new Resend(apiKey as string || '');
 
       // Send notification to the site owner (always goes to verified email)
       const emailResponse = await resend.emails.send({
