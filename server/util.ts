@@ -8,11 +8,11 @@ const url = `https://${vaultName}.vault.azure.net`;
 const credential = new DefaultAzureCredential();
 const client = new SecretClient(url, credential);
 
-export async function getSecret(secretName: string) {
+export async function getSecret(secretName: string): Promise<string | undefined> {
   try {
     const secret = await client.getSecret(secretName);
-    return secret.value;
+    return secret.value || undefined;
   } catch (error) {
-    return null;
+    return undefined;
   }
-};
+}
