@@ -11,10 +11,8 @@ const client = new SecretClient(url, credential);
 export async function getSecret(secretName: string) {
   try {
     const secret = await client.getSecret(secretName);
-    console.log(`Secret value for ${secretName}: ${secret.value}`);
     return secret.value;
   } catch (error) {
-    console.error(`Error retrieving secret ${secretName}:`, error);
     return null;
   }
 };
