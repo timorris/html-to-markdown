@@ -3,15 +3,15 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { z } from "zod";
 import { Resend } from 'resend';
-import { getSecret } from "./util";
+import { getEnvValue, getSecret } from "./util";
 
+const secretLocation = getEnvValue('KEYVAULT_URL') ? 'keyvault' : 'env';
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // GitHub API test endpoint
   app.get('/api/github/test', async (req, res) => {
     try {
-      //const token = process.env.GITHUB_PUBLIC_TOKEN || process.env.GITHUB_TOKEN;
-      const token = await getSecret('github-public-token');
+      const token = secretLocation === 'keyvault' ? await getSecret('github-public-token') : getEnvValue('GITHUB_PUBLIC_TOKEN');
       
       if (!token) {
         return res.json({ error: 'GitHub token not configured', hasToken: false });
@@ -42,8 +42,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // GitHub API endpoint for repository stats
   app.get('/api/github/stats', async (req, res) => {
     try {
-      //const token = process.env.GITHUB_PUBLIC_TOKEN || process.env.GITHUB_TOKEN;
-      const token = await getSecret('github-public-token');
+      const token = secretLocation === 'keyvault' ? await getSecret('github-public-token') : getEnvValue('GITHUB_PUBLIC_TOKEN');
       
       if (!token) {
         return res.json({ stats: null });
@@ -87,8 +86,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // GitHub API endpoint for community activity
   app.get('/api/github/activity', async (req, res) => {
     try {
-      //const token = process.env.GITHUB_PUBLIC_TOKEN || process.env.GITHUB_TOKEN;
-      const token = await getSecret('github-public-token');
+      const token = secretLocation === 'keyvault' ? await getSecret('github-public-token') : getEnvValue('GITHUB_PUBLIC_TOKEN');
       
       if (!token) {
         return res.json({ activities: [] });
@@ -215,15 +213,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { email, subject, message } = contactSchema.parse(req.body);
       
-      //if (!process.env.RESEND_API_KEY) {
-      //  return res.status(500).json({ 
-      //    error: 'Email service not configured. Please contact support directly.' 
-      //  });
-      //}
-      
-      //const resend = new Resend(process.env.RESEND_API_KEY);
-      
-      const apiKey = await getSecret('resend-api-key');
+      const apiKey = secretLocation === 'keyvault' ? await getSecret('resend-api-key') : getEnvValue('RESEND_API_KEY');
       
       if (!apiKey) {
         return res.status(500).json({ 

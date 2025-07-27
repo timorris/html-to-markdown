@@ -1,18 +1,17 @@
-import { DefaultAzureCredential, ClientSecretCredential } from "@azure/identity";
+import { ClientSecretCredential } from "@azure/identity";
 import { SecretClient } from "@azure/keyvault-secrets";
 
-const url = process.env.KEYVAULT_URL || '';
+const url = process.env.KEYVAULT_URL;
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 const tenantId = process.env.TENANT_ID;
 
-if (!tenantId || !clientId || !clientSecret) {
+if (!tenantId || !clientId || !clientSecret || !url) {
     throw new Error('Missing required environment variables for Azure authentication');
 }
 
 const credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
 
-//const credential = new DefaultAzureCredential();
 const client = new SecretClient(url, credential);
 
 export async function getSecret(secretName: string): Promise<string | undefined> {
@@ -22,4 +21,8 @@ export async function getSecret(secretName: string): Promise<string | undefined>
   } catch (error) {
     return undefined;
   }
+}
+
+export function getEnvValue(envName: string): string | undefined {
+  return process.env[envName] || undefined;
 }
