@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function Feedback() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-slate-950">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
@@ -125,26 +125,50 @@ export default function Feedback() {
               </CardContent>
             </Card>
 
-            {/* Popular Requests */}
+            {/* How to Submit Feedback */}
             <Card className="bg-slate-900/50 border-slate-700">
               <CardContent className="p-6">
-                <h2 className="text-xl font-semibold mb-4">Popular Feature Requests</h2>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg">
-                    <span className="text-slate-300">Batch file conversion</span>
-                    <span className="text-sm text-slate-500">Requested by 23 users</span>
+                <h2 className="text-xl font-semibold mb-4">How to Submit Your Feedback</h2>
+                <div className="space-y-4">
+                  <div className="p-4 bg-slate-800/50 rounded-lg border border-blue-500/20">
+                    <h3 className="font-medium text-blue-400 mb-2">GitHub Issues (Recommended)</h3>
+                    <p className="text-slate-300 text-sm mb-3">
+                      Submit feature requests, bug reports, and suggestions directly to our GitHub repository:
+                    </p>
+                    <a 
+                      href="https://github.com/timorris/html-to-markdown/issues" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors text-sm"
+                    >
+                      Open GitHub Issues →
+                    </a>
                   </div>
-                  <div className="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg">
-                    <span className="text-slate-300">Custom CSS styling for preview</span>
-                    <span className="text-sm text-slate-500">Requested by 18 users</span>
+                  
+                  <div className="p-4 bg-slate-800/50 rounded-lg border border-green-500/20">
+                    <h3 className="font-medium text-green-400 mb-2">Email Feedback</h3>
+                    <p className="text-slate-300 text-sm mb-3">
+                      For general feedback, questions, or detailed suggestions, reach out via email:
+                    </p>
+                    <Link 
+                      href="/support" 
+                      className="inline-flex items-center text-green-400 hover:text-green-300 transition-colors text-sm"
+                    >
+                      Contact Support →
+                    </Link>
                   </div>
-                  <div className="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg">
-                    <span className="text-slate-300">Keyboard shortcuts</span>
-                    <span className="text-sm text-slate-500">Requested by 15 users</span>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg">
-                    <span className="text-slate-300">Save/load sessions</span>
-                    <span className="text-sm text-slate-500">Requested by 12 users</span>
+                  
+                  <div className="p-4 bg-slate-800/50 rounded-lg border border-purple-500/20">
+                    <h3 className="font-medium text-purple-400 mb-2">Community Discussion</h3>
+                    <p className="text-slate-300 text-sm mb-3">
+                      Join discussions, share ideas, and connect with other users in our community:
+                    </p>
+                    <Link 
+                      href="/community" 
+                      className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors text-sm"
+                    >
+                      Visit Community →
+                    </Link>
                   </div>
                 </div>
               </CardContent>

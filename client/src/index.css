@@ -2,6 +2,456 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Smooth theme transition */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Light mode color variables */
+:root {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 240 9% 10%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 240 5.9% 10%;
+  --radius: 0.5rem;
+}
+
+/* Dark mode color variables */
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 240 5.9% 10%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --ring: 240 4.9% 83.9%;
+}
+
+/* Light mode specific styles */
+.light {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  color: #0f172a;
+}
+
+/* Light mode panel backgrounds */
+.light .bg-slate-950 {
+  background: #ffffff !important;
+  color: #0f172a !important;
+}
+
+.light .bg-slate-900\/50 {
+  background: rgba(248, 250, 252, 0.8) !important;
+}
+
+.light .bg-slate-900 {
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+.light .bg-slate-800\/50 {
+  background: rgba(226, 232, 240, 0.8) !important;
+}
+
+.light .bg-slate-800 {
+  background: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+.light .bg-slate-700 {
+  background: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+.light .text-slate-50 {
+  color: #0f172a !important;
+}
+
+.light .text-slate-200 {
+  color: #374151 !important;
+}
+
+.light .text-slate-300 {
+  color: #4b5563 !important;
+}
+
+.light .text-slate-400 {
+  color: #6b7280 !important;
+}
+
+.light .text-slate-500 {
+  color: #6b7280 !important;
+}
+
+.light .text-slate-600 {
+  color: #4b5563 !important;
+}
+
+.light .border-slate-700 {
+  border-color: #cbd5e1 !important;
+}
+
+.light .border-slate-600 {
+  border-color: #d1d5db !important;
+}
+
+/* Light mode adjustments for dark background elements */
+.light .bg-gradient-to-br {
+  background: linear-gradient(to bottom right, #3b82f6, #8b5cf6) !important;
+}
+
+/* Keep white text on gradient backgrounds in light mode */
+.light .bg-gradient-to-br .text-white {
+  color: #ffffff !important;
+}
+
+/* Light mode button styling */
+.light .bg-slate-800:hover {
+  background: #cbd5e1 !important;
+}
+
+.light .bg-slate-700:hover {
+  background: #9ca3af !important;
+}
+
+/* Light mode text areas and inputs */
+.light textarea {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #d1d5db !important;
+}
+
+.light textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+/* Light mode example boxes */
+.light .bg-slate-800 code {
+  color: #0f172a !important;
+}
+
+/* Light mode privacy notice */
+.light .bg-green-900\/20 {
+  background: rgba(34, 197, 94, 0.1) !important;
+  color: #059669 !important;
+}
+
+/* Light mode footer links */
+.light .text-slate-400:hover {
+  color: #059669 !important;
+}
+
+/* Send button - ensure white text/icon in both themes */
+.bg-indigo-500 {
+  color: #ffffff !important;
+}
+
+.bg-indigo-500:hover {
+  color: #ffffff !important;
+}
+
+.bg-indigo-600 {
+  color: #ffffff !important;
+}
+
+.bg-indigo-600:hover {
+  color: #ffffff !important;
+}
+
+/* Light mode support cards - white background with border */
+.light .bg-slate-900\/50 {
+  background: #ffffff !important;
+  border-color: #d1d5db !important;
+  color: #0f172a !important;
+}
+
+.light .bg-slate-900\/30 {
+  background: #ffffff !important;
+  border-color: #d1d5db !important;
+  color: #0f172a !important;
+}
+
+.light .bg-slate-800\/50 {
+  background: #f9fafb !important;
+  border-color: #e5e7eb !important;
+  color: #0f172a !important;
+}
+
+/* Light mode support card text colors */
+.light .text-slate-200 {
+  color: #0f172a !important;
+}
+
+.light .text-slate-100 {
+  color: #0f172a !important;
+}
+
+/* Light mode privacy notice - darker background with white text */
+.light .bg-green-900\/20 {
+  background: #374151 !important;
+  color: #ffffff !important;
+  border-color: #4b5563 !important;
+}
+
+.light .bg-green-900\/20 .text-slate-300 {
+  color: #ffffff !important;
+}
+
+.light .bg-green-900\/20 .text-slate-400 {
+  color: #ffffff !important;
+}
+
+/* Light mode character count and emoji button styling */
+.light .bg-slate-800\/80 {
+  background: rgba(55, 65, 81, 0.9) !important;
+  color: #ffffff !important;
+}
+
+.light .bg-slate-700\/90 {
+  background: rgba(55, 65, 81, 0.95) !important;
+  color: #ffffff !important;
+}
+
+.light .bg-slate-800 {
+  background: #374151 !important;
+  color: #ffffff !important;
+}
+
+.light .text-slate-300 {
+  color: #ffffff !important;
+}
+
+/* Light mode emoji button and share button icon color */
+.light .text-slate-600 {
+  color: #ffffff !important;
+}
+
+.light .text-slate-600:hover {
+  color: #ffffff !important;
+}
+
+.light .text-slate-400 {
+  color: #ffffff !important;
+}
+
+.light .text-slate-400:hover {
+  color: #ffffff !important;
+}
+
+/* Share button disabled state styling */
+.light button:disabled .text-slate-400,
+button:disabled .text-slate-400 {
+  color: #6b7280 !important;
+  opacity: 0.5;
+}
+
+/* Share button enabled state styling */
+.light button:not(:disabled) .text-slate-400,
+button:not(:disabled) .text-slate-400 {
+  color: #ffffff !important;
+}
+
+/* Footer styling in light mode */
+.light footer a {
+  color: #374151 !important;
+}
+
+.light footer a:hover {
+  color: #ea580c !important;
+}
+
+/* More specific footer navigation link hover targeting only */
+.light footer .flex.items-center.space-x-6 a:hover {
+  color: #ea580c !important;
+}
+
+.light footer .text-slate-400 {
+  color: #6b7280 !important;
+}
+
+/* Form input styling to match home page textareas in light mode */
+.light input[type="email"],
+.light input[type="text"],
+.light textarea {
+  background-color: #ffffff !important;
+  border-color: #d1d5db !important;
+  color: #1f2937 !important;
+}
+
+.light input[type="email"]::placeholder,
+.light input[type="text"]::placeholder,
+.light textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+/* Additional specific targeting for textarea elements */
+.light form textarea {
+  background-color: #ffffff !important;
+  border-color: #d1d5db !important;
+  color: #1f2937 !important;
+}
+
+.light form textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+/* Most specific targeting for textarea with exact classes from support page */
+.light .bg-slate-800 {
+  background-color: #ffffff !important;
+  border-color: #d1d5db !important;
+  color: #1f2937 !important;
+}
+
+.light .border-slate-600 {
+  border-color: #d1d5db !important;
+}
+
+.light .text-slate-50 {
+  color: #1f2937 !important;
+}
+
+.light .placeholder-slate-400::placeholder {
+  color: #9ca3af !important;
+}
+
+/* GitHub icon visibility in light theme - very specific targeting */
+.light header button[class*="bg-slate-800"] svg {
+  color: #6b7280 !important;
+  stroke: #6b7280 !important;
+}
+
+.light button svg[class*="text-slate-400"] {
+  color: #6b7280 !important;
+  stroke: #6b7280 !important;
+}
+
+/* Override any conflicting SVG styles in light mode */
+.light svg[class*="text-slate-400"] {
+  color: #6b7280 !important;
+  stroke: #6b7280 !important;
+  fill: none !important;
+}
+
+/* Main buttons styling in light theme (GitHub, Emoji, etc.) */
+.light button[class*="bg-slate-800"] {
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+}
+
+.light button[class*="bg-slate-800"]:hover {
+  background-color: #f3f4f6 !important;
+  border-color: #9ca3af !important;
+}
+
+.light button[class*="bg-slate-800"] svg {
+  color: #6b7280 !important;
+  stroke: #6b7280 !important;
+}
+
+/* Emoji button with variant="outline" styling in light theme */
+.light button[class*="text-slate-600"] {
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  color: #6b7280 !important;
+}
+
+.light button[class*="text-slate-600"]:hover {
+  background-color: #f3f4f6 !important;
+  border-color: #9ca3af !important;
+  color: #374151 !important;
+}
+
+.light button[class*="text-slate-600"] svg {
+  color: #6b7280 !important;
+  stroke: #6b7280 !important;
+}
+
+.light button[class*="text-slate-600"]:hover svg {
+  color: #374151 !important;
+  stroke: #374151 !important;
+}
+
+/* Quick Tips section styling in light mode */
+.light .text-slate-200 {
+  color: #1f2937 !important;
+}
+
+.light .text-slate-300 {
+  color: #374151 !important;
+}
+
+.light .text-indigo-400 {
+  color: #4f46e5 !important;
+}
+
+.light .text-blue-400 {
+  color: #2563eb !important;
+}
+
+.light .text-green-400 {
+  color: #16a34a !important;
+}
+
+.light .text-orange-300 {
+  color: #ea580c !important;
+}
+
+.light .text-blue-300 {
+  color: #2563eb !important;
+}
+
+/* Fix remaining white text in Quick Tips section */
+.light .text-slate-400 span {
+  color: #6b7280 !important;
+}
+
+.light .space-y-2 span {
+  color: #6b7280 !important;
+}
+
+/* Ensure all text within cards and sections is dark in light mode */
+.light .bg-slate-900\/50 .text-slate-400 {
+  color: #6b7280 !important;
+}
+
+.light .bg-slate-800\/50 .text-slate-400 {
+  color: #6b7280 !important;
+}
+
+/* Footer "Built with" badges - keep white text in light mode */
+.light footer .bg-slate-800 {
+  color: #ffffff !important;
+}
+
 :root {
   --background: hsl(222, 84%, 5%);
   --foreground: hsl(210, 40%, 98%);

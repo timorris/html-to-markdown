@@ -17,6 +17,16 @@ interface GitHubActivityResponse {
   activities: GitHubActivity[];
 }
 
+interface GitHubStats {
+  stars: number;
+  contributors: number;
+  releases: number;
+}
+
+interface GitHubStatsResponse {
+  stats: GitHubStats | null;
+}
+
 export default function Community() {
   // Fetch GitHub activity data
   const { data: activityData, isLoading, error } = useQuery<GitHubActivityResponse>({
@@ -25,10 +35,18 @@ export default function Community() {
     retry: 2
   });
 
+  // Fetch GitHub repository stats
+  const { data: statsData, isLoading: statsLoading } = useQuery<GitHubStatsResponse>({
+    queryKey: ['/api/github/stats'],
+    staleTime: 10 * 60 * 1000, // Cache for 10 minutes
+    retry: 2
+  });
+
   const activities = activityData?.activities || [];
+  const stats = statsData?.stats;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-slate-950">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           {/* Header */}
@@ -62,18 +80,52 @@ export default function Community() {
                   The HTML ↔ Markdown Converter is open source! Contribute to the project, report issues, or explore the code.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                  <div className="p-3 bg-slate-800/50 rounded-lg text-center">
-                    <div className="text-2xl font-bold text-green-400">150+</div>
-                    <div className="text-sm text-slate-400">Stars</div>
-                  </div>
-                  <div className="p-3 bg-slate-800/50 rounded-lg text-center">
-                    <div className="text-2xl font-bold text-blue-400">25+</div>
-                    <div className="text-sm text-slate-400">Contributors</div>
-                  </div>
-                  <div className="p-3 bg-slate-800/50 rounded-lg text-center">
-                    <div className="text-2xl font-bold text-purple-400">12</div>
-                    <div className="text-sm text-slate-400">Releases</div>
-                  </div>
+                  {statsLoading ? (
+                    <>
+                      <div className="p-3 bg-slate-800/50 rounded-lg text-center animate-pulse">
+                        <div className="h-8 bg-slate-600 rounded mb-2"></div>
+                        <div className="h-4 bg-slate-700 rounded w-16 mx-auto"></div>
+                      </div>
+                      <div className="p-3 bg-slate-800/50 rounded-lg text-center animate-pulse">
+                        <div className="h-8 bg-slate-600 rounded mb-2"></div>
+                        <div className="h-4 bg-slate-700 rounded w-20 mx-auto"></div>
+                      </div>
+                      <div className="p-3 bg-slate-800/50 rounded-lg text-center animate-pulse">
+                        <div className="h-8 bg-slate-600 rounded mb-2"></div>
+                        <div className="h-4 bg-slate-700 rounded w-16 mx-auto"></div>
+                      </div>
+                    </>
+                  ) : stats ? (
+                    <>
+                      <div className="p-3 bg-slate-800/50 rounded-lg text-center">
+                        <div className="text-2xl font-bold text-green-400">{stats.stars}</div>
+                        <div className="text-sm text-slate-400">Stars</div>
+                      </div>
+                      <div className="p-3 bg-slate-800/50 rounded-lg text-center">
+                        <div className="text-2xl font-bold text-blue-400">{stats.contributors}</div>
+                        <div className="text-sm text-slate-400">Contributors</div>
+                      </div>
+                      <div className="p-3 bg-slate-800/50 rounded-lg text-center">
+                        <div className="text-2xl font-bold text-purple-400">{stats.releases}</div>
+                        <div className="text-sm text-slate-400">Releases</div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="p-3 bg-slate-800/50 rounded-lg text-center">
+                        <div className="text-2xl font-bold text-slate-500">-</div>
+                        <div className="text-sm text-slate-400">Stars</div>
+                      </div>
+                      <div className="p-3 bg-slate-800/50 rounded-lg text-center">
+                        <div className="text-2xl font-bold text-slate-500">-</div>
+                        <div className="text-sm text-slate-400">Contributors</div>
+                      </div>
+                      <div className="p-3 bg-slate-800/50 rounded-lg text-center">
+                        <div className="text-2xl font-bold text-slate-500">-</div>
+                        <div className="text-sm text-slate-400">Releases</div>
+                      </div>
+                    </>
+                  )}
                 </div>
                 <a 
                   href="https://github.com/timorris/html-to-markdown" 

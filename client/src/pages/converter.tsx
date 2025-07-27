@@ -13,6 +13,11 @@ import {
   CheckCircle2
 } from "lucide-react";
 import Footer from "@/components/Footer";
+import EmojiPicker from "@/components/EmojiPicker";
+import ThemeToggle from "@/components/ThemeToggle";
+import ShareButtons from "@/components/ShareButtons";
+import TooltipHint from "@/components/TooltipHint";
+import KeyboardShortcuts from "@/components/KeyboardShortcuts";
 
 declare global {
   interface Window {
@@ -32,7 +37,70 @@ export default function Converter() {
   const { toast } = useToast();
   const debounceTimer = useRef<NodeJS.Timeout>();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const markdownTextareaRef = useRef<HTMLTextAreaElement>(null);
   const turndownService = useRef<any>(null);
+
+  // Load shared content from URL parameters
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const sharedHtml = urlParams.get('html');
+    const sharedMarkdown = urlParams.get('markdown');
+    
+    if (sharedHtml) {
+      setHtmlContent(decodeURIComponent(sharedHtml));
+      setLastEditedPanel('html');
+    }
+    
+    if (sharedMarkdown) {
+      setMarkdownContent(decodeURIComponent(sharedMarkdown));
+      setLastEditedPanel('markdown');
+    }
+    
+    // Clear URL parameters after loading
+    if (sharedHtml || sharedMarkdown) {
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  }, []);
+
+  // Global keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Copy shortcuts
+      if (event.ctrlKey && event.shiftKey && event.key === 'C') {
+        event.preventDefault();
+        copyToClipboard(htmlContent, 'HTML');
+      }
+      
+      if (event.ctrlKey && event.shiftKey && event.key === 'M') {
+        event.preventDefault();
+        copyToClipboard(markdownContent, 'Markdown');
+      }
+      
+      // Clear content shortcut
+      if (event.ctrlKey && event.shiftKey && event.key === 'X') {
+        event.preventDefault();
+        clearAll();
+      }
+      
+      // Upload file shortcut
+      if (event.ctrlKey && event.shiftKey && event.key === 'U') {
+        event.preventDefault();
+        fileInputRef.current?.click();
+      }
+      
+      // Theme toggle shortcut
+      if (event.ctrlKey && event.shiftKey && event.key === 'T') {
+        event.preventDefault();
+        const themeToggle = document.querySelector('[data-theme-toggle]') as HTMLButtonElement;
+        if (themeToggle) {
+          themeToggle.click();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [htmlContent, markdownContent]);
 
   // Initialize conversion libraries
   useEffect(() => {
@@ -270,6 +338,46 @@ export default function Converter() {
     });
   };
 
+  // Insert text at cursor position in markdown textarea
+  const insertAtCursor = (text: string) => {
+    const textarea = markdownTextareaRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const currentContent = markdownContent;
+    
+    const newContent = currentContent.substring(0, start) + text + currentContent.substring(end);
+    setMarkdownContent(newContent);
+    setLastEditedPanel("markdown");
+    
+    // Restore cursor position after the inserted text
+    setTimeout(() => {
+      textarea.focus();
+      textarea.setSelectionRange(start + text.length, start + text.length);
+    }, 0);
+  };
+
+  // Handle emoji selection
+  const handleEmojiSelect = (emoji: string) => {
+    insertAtCursor(emoji);
+    toast({
+      title: "Emoji added",
+      description: `Added ${emoji} to Markdown`,
+    });
+  };
+
+  // Handle icon selection
+  const handleIconSelect = (iconName: string) => {
+    // Insert as markdown with icon notation
+    const iconMarkdown = `:${iconName.toLowerCase()}:`;
+    insertAtCursor(iconMarkdown);
+    toast({
+      title: "Icon added",
+      description: `Added ${iconName} icon notation to Markdown`,
+    });
+  };
+
   // Handle file upload
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -347,9 +455,25 @@ export default function Converter() {
                 <span>conversions</span>
               </div>
               
-              <Button variant="ghost" size="icon" className="bg-slate-800 hover:bg-slate-700">
-                <Github className="w-5 h-5 text-slate-400" />
-              </Button>
+              <ShareButtons 
+                htmlContent={htmlContent} 
+                markdownContent={markdownContent} 
+              />
+              
+              <ThemeToggle title="Switch between light and dark theme (Ctrl+Shift+T)" />
+              
+              <KeyboardShortcuts />
+              
+              <TooltipHint content="View source code on GitHub">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="bg-slate-800 hover:bg-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600"
+                  onClick={() => window.open('https://github.com/timorris/html-to-markdown', '_blank')}
+                >
+                  <Github className="w-5 h-5 text-slate-400" />
+                </Button>
+              </TooltipHint>
             </div>
           </div>
         </div>
@@ -379,15 +503,17 @@ export default function Converter() {
                   Input/Output
                 </span>
               </div>
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => copyToClipboard(htmlContent, 'HTML')}
-                className="bg-slate-800 hover:bg-slate-700"
-              >
-                <Copy className="w-4 h-4 mr-2" />
-                Copy
-              </Button>
+              <TooltipHint content="Copy HTML content to clipboard (Ctrl+Shift+C)">
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => copyToClipboard(htmlContent, 'HTML')}
+                  className="bg-slate-800 hover:bg-slate-700"
+                >
+                  <Copy className="w-4 h-4 mr-2" />
+                  Copy
+                </Button>
+              </TooltipHint>
             </div>
             
             <div className="relative">
@@ -413,19 +539,30 @@ export default function Converter() {
                   Input/Output
                 </span>
               </div>
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => copyToClipboard(markdownContent, 'Markdown')}
-                className="bg-slate-800 hover:bg-slate-700"
-              >
-                <Copy className="w-4 h-4 mr-2" />
-                Copy
-              </Button>
+              <div className="flex items-center space-x-2">
+                <TooltipHint content="Add emojis and icons to your Markdown">
+                  <EmojiPicker 
+                    onEmojiSelect={handleEmojiSelect}
+                    onIconSelect={handleIconSelect}
+                  />
+                </TooltipHint>
+                <TooltipHint content="Copy Markdown content to clipboard (Ctrl+Shift+M)">
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => copyToClipboard(markdownContent, 'Markdown')}
+                    className="bg-slate-800 hover:bg-slate-700"
+                  >
+                    <Copy className="w-4 h-4 mr-2" />
+                    Copy
+                  </Button>
+                </TooltipHint>
+              </div>
             </div>
             
             <div className="relative">
               <Textarea 
+                ref={markdownTextareaRef}
                 value={markdownContent}
                 onChange={(e) => handleMarkdownChange(e.target.value)}
                 className="h-80 font-mono text-sm custom-scrollbar bg-slate-900 border-slate-700 focus:border-indigo-500 resize-none"
@@ -448,25 +585,29 @@ export default function Converter() {
                 </span>
               </div>
               <div className="flex items-center space-x-2">
-                <Button 
-                  variant="outline"
-                  size="sm"
-                  onClick={() => fileInputRef.current?.click()}
-                  className="bg-slate-800 hover:bg-slate-700 border-slate-600"
-                >
-                  <Upload className="w-4 h-4 mr-2" />
-                  Upload
-                </Button>
+                <TooltipHint content="Upload HTML or Markdown file (Ctrl+Shift+U)">
+                  <Button 
+                    variant="outline"
+                    size="sm"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="bg-slate-800 hover:bg-slate-700 border-slate-600"
+                  >
+                    <Upload className="w-4 h-4 mr-2" />
+                    Upload
+                  </Button>
+                </TooltipHint>
                 
-                <Button 
-                  variant="outline"
-                  size="sm"
-                  onClick={clearAll}
-                  className="bg-red-500/10 hover:bg-red-500/20 border-red-500/30 text-red-400 hover:text-red-300"
-                >
-                  <Trash2 className="w-4 h-4 mr-2" />
-                  Clear
-                </Button>
+                <TooltipHint content="Clear all content (Ctrl+K)">
+                  <Button 
+                    variant="outline"
+                    size="sm"
+                    onClick={clearAll}
+                    className="bg-red-500/10 hover:bg-red-500/20 border-red-500/30 text-red-400 hover:text-red-300"
+                  >
+                    <Trash2 className="w-4 h-4 mr-2" />
+                    Clear
+                  </Button>
+                </TooltipHint>
               </div>
             </div>
             

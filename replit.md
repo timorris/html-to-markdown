@@ -45,6 +45,7 @@ Preferred communication style: Simple, everyday language.
 - **Copy Functionality**: One-click copying of converted content
 - **Status Indicators**: Real-time conversion feedback and statistics
 - **Responsive Design**: Mobile-friendly layout with proper breakpoints
+- **Emoji & Icon Picker**: Searchable picker with organized categories for easy Markdown enhancement
 - **Support System**: Comprehensive support infrastructure with multiple specialized pages
 - **Legal Pages**: Standard Terms of Service and Privacy Policy pages
 
@@ -117,7 +118,52 @@ Preferred communication style: Simple, everyday language.
 - **Current State**: Basic user schema exists but application uses memory storage
 - **Future**: Ready for PostgreSQL integration when user authentication is needed
 
-## Recent Changes (July 26, 2025)
+## Recent Changes (July 26-27, 2025)
+
+### Keyboard Shortcut System Implementation (July 27, 2025)
+- **Comprehensive Keyboard Shortcuts**: Global shortcuts for all major actions (copy, clear, upload, theme toggle)
+- **Keyboard Shortcut Overlay**: Professional reference dialog with categorized shortcuts and visual key styling
+- **Enhanced Tooltips**: Updated all tooltips to display their corresponding keyboard shortcuts
+- **Quick Access**: Ctrl+Shift+K or Ctrl+Shift+? opens the shortcuts reference overlay
+- **Theme Toggle Fix**: Resolved tooltip wrapper interference by using native HTML title attribute for hover hints
+- **Event Handling**: Proper click event handling with stopPropagation for reliable theme switching
+
+### Interactive Tooltip System Implementation (July 27, 2025)
+- **Custom Tooltip Component**: Created reusable TooltipHint component with configurable positioning, delay, and content
+- **Comprehensive UI Hints**: Added helpful tooltips to all interactive elements throughout the application
+- **Header Navigation Tooltips**: Theme toggle and GitHub repository button with descriptive hints
+- **Action Button Tooltips**: Copy buttons, upload functionality, and clear actions with keyboard shortcuts
+- **Smart Feature Tooltips**: Context-aware tooltips for emoji picker and share functionality
+- **User Experience Enhancement**: Improved discoverability and usability with non-intrusive hover hints
+- **React Ref Warnings**: Development-time warnings from Radix UI PopoverTrigger components are safe to ignore
+
+## Previous Updates (July 26-27, 2025)
+
+### Theme System Implementation (July 27, 2025)
+- **Global Theme Provider**: Created centralized theme management using React Context
+- **Theme Persistence**: Theme preference now persists across all pages and browser sessions
+- **Enhanced Light Mode**: Comprehensive styling improvements for better text readability and contrast
+- **Theme Toggle Component**: Animated sun/moon icon toggle with smooth transitions
+- **CSS Architecture**: Refactored from `:not(.dark)` to `.light` class targeting for better specificity
+
+### Social Media Sharing Features (July 27, 2025)
+- **Custom Share Buttons**: Twitter and Facebook sharing with generated preview content
+- **Preview Image Generator**: Dynamic 1200x630px social media preview images with gradients
+- **Shareable URLs**: Generate links with embedded HTML/Markdown content via URL parameters
+- **Copy Functionality**: One-click copying of shareable links for easy distribution
+- **Auto-loading Shared Content**: Automatically loads shared content from URL parameters on page load
+- **Smart Button State**: Share button intelligently disabled when no content is present
+
+### UI/UX Enhancements (July 27, 2025)
+- **Complete Light Mode Overhaul**: Comprehensive text contrast optimization across all UI elements
+- **Interactive Element Styling**: White text/icons on purple buttons, emoji picker, character counts, share buttons
+- **Form Consistency**: All form inputs (email, subject, textarea) now have consistent white backgrounds and styling
+- **Footer Enhancement**: Dark text with orange hover effects for navigation links, proper badge styling
+- **Quick Tips Section**: Fixed all text visibility issues with proper dark text in light mode
+- **Privacy Notice Styling**: Dark background with white text for optimal contrast in light theme
+- **Button State Management**: Clear visual distinction between enabled/disabled states across all components
+- **Cross-Page Consistency**: Unified styling approach across converter, support, feedback, and community pages
+- **Header Button Consistency**: GitHub and emoji buttons now have matching white backgrounds with gray borders and icons in light theme
 
 ### Support Infrastructure Enhancement
 - **Created Email Support Page** (`/email-support`): Response time information, troubleshooting guidelines, and support best practices
@@ -135,3 +181,15 @@ Preferred communication style: Simple, everyday language.
 - **Resend Integration**: All contact form submissions route to verified Gmail address (bethatway@gmail.com)
 - **Production Ready**: Email delivery works in both development and production environments
 - **Reply-to Functionality**: Maintains sender's email for easy response workflow
+
+### User Interface Components
+- **Tooltip System**: Comprehensive interactive hints for all UI elements with smart content awareness
+- **Theme Toggle**: Animated sun/moon icon transitions with tooltip guidance
+
+### Emoji & Icon Picker Implementation (July 26, 2025)
+- **Comprehensive Emoji Collection**: Organized into 5 categories (Smileys, Nature, Food, Objects, Symbols) with 300+ emojis
+- **Professional Icon Library**: Lucide React icons organized by use case (UI, Files, Communication, Media, Tools)
+- **Smart Search Functionality**: Real-time filtering across both emojis and icons with instant results
+- **Cursor Position Insertion**: Maintains exact typing position when inserting emojis or icons
+- **Tabbed Interface**: Clean separation between emoji and icon selection with optimized grid layouts
+- **Markdown Integration**: Icons inserted as standard notation (:iconname:) for compatibility
