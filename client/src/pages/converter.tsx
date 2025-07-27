@@ -581,9 +581,9 @@ export default function Converter() {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <h2 className="text-lg font-semibold dark:text-slate-200 text-slate-900">Preview</h2>
-                <span className="px-2 py-1 text-xs font-medium bg-green-500/20 text-green-400 rounded-md">
+                {/*<span className="px-2 py-1 text-xs font-medium bg-green-500/20 text-green-400 rounded-md">
                   Syntax Highlighted
-                </span>
+                </span>*/}
               </div>
               <div className="flex items-center space-x-2">
                 <TooltipHint content="Upload HTML or Markdown file (Ctrl+Shift+U)">
