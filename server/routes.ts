@@ -32,10 +32,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         apiWorking: response.ok,
         user: response.ok ? userData.login : null,
         status: response.status,
-        tokenType: process.env.GITHUB_PUBLIC_TOKEN ? 'public' : 'fine-grained'
+        tokenType: 'public'
       });
     } catch (error) {
-      return res.json({ error: 'GitHub API test failed', hasToken: !!(process.env.GITHUB_PUBLIC_TOKEN || process.env.GITHUB_TOKEN) });
+      return res.json({ error: 'GitHub API test failed', hasToken: true });
     }
   });
 
