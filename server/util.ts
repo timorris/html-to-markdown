@@ -11,7 +11,6 @@ if (!tenantId || !clientId || !clientSecret || !url) {
 }
 
 const credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
-
 const client = new SecretClient(url, credential);
 
 export async function getSecret(secretName: string): Promise<string | undefined> {

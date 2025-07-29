@@ -48,7 +48,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.json({ stats: null });
       }
 
-      const repo = 'timorris/html-to-markdown';
+      const repo = getEnvValue('GITHUB_REPO');
       const headers = {
         'Authorization': `Bearer ${token}`,
         'Accept': 'application/vnd.github.v3+json',
