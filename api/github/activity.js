@@ -12,7 +12,7 @@ export default async function handler(req, res) {
       return res.json({ activities: [] });
     }
 
-    const repo = 'timorris/html-to-markdown';
+    const repo = getEnvValue('GITHUB_REPO');
     const headers = {
       'Authorization': `Bearer ${token}`,
       'Accept': 'application/vnd.github.v3+json',
