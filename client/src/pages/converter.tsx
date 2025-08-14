@@ -645,15 +645,15 @@ export default function Converter() {
               <div className="space-y-3">
                 <h4 className="font-medium text-slate-300">HTML to Markdown</h4>
                 <ul className="space-y-2 text-sm text-slate-400">
-                  <li className="flex items-start space-x-2">
+                  <li className="flex items-start space-x-2 space-y-1">
                     <span className="text-indigo-400 mt-1">•</span>
                     <span>Paste HTML in the left panel to see Markdown conversion</span>
                   </li>
-                  <li className="flex items-start space-x-2">
+                  <li className="flex items-start space-x-2 space-y-1">
                     <span className="text-indigo-400 mt-1">•</span>
                     <span>Supports headings, links, images, lists, tables, and code blocks</span>
                   </li>
-                  <li className="flex items-start space-x-2">
+                  <li className="flex items-start space-x-2 space-y-1">
                     <span className="text-indigo-400 mt-1">•</span>
                     <span>Preserves semantic structure and formatting</span>
                   </li>
@@ -663,19 +663,19 @@ export default function Converter() {
               <div className="space-y-3">
                 <h4 className="font-medium text-slate-300">Markdown to HTML</h4>
                 <ul className="space-y-2 text-sm text-slate-400">
-                  <li className="flex items-start space-x-2">
+                  <li className="flex items-start space-x-2 space-y-1">
                     <span className="text-blue-400 mt-1">•</span>
                     <span>Type Markdown in the right panel for HTML output</span>
                   </li>
-                  <li className="flex items-start space-x-2">
+                  <li className="flex items-start space-x-2 space-y-1">
                     <span className="text-blue-400 mt-1">•</span>
                     <span>Supports tables, strikethrough, and task lists</span>
                   </li>
-                  <li className="flex items-start space-x-2">
+                  <li className="flex items-start space-x-2 space-y-1">
                     <span className="text-blue-400 mt-1">•</span>
                     <span>Generates clean, semantic HTML markup</span>
                   </li>
-                  <li className="flex items-start space-x-2">
+                  <li className="flex items-start space-x-2 space-y-1">
                     <span className="text-green-400 mt-1">•</span>
                     <span>Live preview shows how Markdown renders visually</span>
                   </li>
