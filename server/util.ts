@@ -7,7 +7,7 @@ const clientSecret = process.env.CLIENT_SECRET;
 const tenantId = process.env.TENANT_ID;
 
 if (!tenantId || !clientId || !clientSecret || !url) {
-    throw new Error('Missing required environment variables for Azure authentication');
+    throw new Error('Missing required environment variables for Azure authentication. Ensure you have set up your .env file correctly or assigned them to your app server.');
 }
 
 const credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
