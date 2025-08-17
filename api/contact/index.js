@@ -33,7 +33,7 @@ export default async function handler(req, res) {
 
     // Send notification to the site owner (always goes to verified email)
     const emailResponse = await resend.emails.send({
-      from: 'notifications.htmlmd.com',
+      from: 'send@notifications.htmlmd.com',
       to: ['bethatway@gmail.com'], // Always send to verified email address
       subject: `Contact Form: ${subject}`,
       html: `
