@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   try {
     const { email, subject, message } = contactSchema.validate(req.body);
     
-    const apiKey = secretLocation === 'keyvault' ? await getSecret('resend-api-key') : getEnvValue('RESEND_API_KEY');
+    const apiKey = secretLocation === 'keyvault' ? await getSecret('v-resend-api-key') : getEnvValue('RESEND_API_KEY');
     
     if (!apiKey) {
       return res.status(500).json({ 
