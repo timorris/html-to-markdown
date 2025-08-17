@@ -25,3 +25,24 @@ export async function getSecret(secretName) {
 export function getEnvValue(envName) {
   return process.env[envName] || undefined;
 }
+
+export function secretLocation() {
+	return getEnvValue('KEYVAULT_URL') ? 'keyvault' : 'env';
+}
+
+export function getTimeAgo(date) {
+    const now = new Date();
+    const diffInMs = now.getTime() - date.getTime();
+    const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
+    const diffInDays = Math.floor(diffInHours / 24);
+
+    if (diffInHours < 1) {
+      return 'just now';
+    } else if (diffInHours < 24) {
+      return `${diffInHours} hour${diffInHours > 1 ? 's' : ''} ago`;
+    } else if (diffInDays < 7) {
+      return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
+    } else {
+      return `${Math.floor(diffInDays / 7)} week${Math.floor(diffInDays / 7) > 1 ? 's' : ''} ago`;
+    }
+  }
